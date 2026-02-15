@@ -76,6 +76,21 @@ select{
 <script>
 function updateRank(){
     let rank = document.getElementById("inputRank").value;
+    let img = document.getElementById("rankImg");
+
+    img.src = rank + ".png";
+
+    // リセット
+    img.style.transform = "none";
+
+    // Sだけ左にズラす
+    if(rank === "S"){
+        img.style.transform = "translateX(-20%)";
+    }
+}
+    
+function updateRank(){
+    let rank = document.getElementById("inputRank").value;
     document.getElementById("rankImg").src = rank + ".png";
 }
 </script>
