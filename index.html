@@ -74,20 +74,26 @@ select{
 </div>
 
 <script>
+
+    
 function updateRank(){
-    let rank = document.getElementById("inputRank").value;
-    let img = document.getElementById("rankImg");
+    const rank = document.getElementById("inputRank").value;
+    const img  = document.getElementById("rankImg");
 
-    img.src = rank + "S.png";
+    img.src = rank + ".png";
 
-    // リセット
-    img.style.transform = "none";
+    // いったん通常位置に戻す
+    img.style.top = "-11%";
+    img.style.right = "25%";
 
-    // Sだけ左にズラす
+    // Sのときだけ位置を変える
     if(rank === "S"){
-        img.style.transform = "translateX(-25%)";
+        img.style.top = "-11%";   // ← 上下も変えたいならここ
+        img.style.right = "20%";  // ← ここを好きな値に
     }
 }
+
+    
     
 function updateRank(){
     let rank = document.getElementById("inputRank").value;
