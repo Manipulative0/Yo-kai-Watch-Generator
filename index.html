@@ -55,10 +55,14 @@ body{
     .numImg{
     width:50px;      /* 横サイズ固定 */
     height:70px;     /* 縦サイズ固定 */
-    object-fit:contain;  /* 歪ませない */
+    object-fit:contain;
+     margin-left:-10px; /* 歪ませない */
 }
 
-
+.numImg:first-child{
+    margin-left:0;  /* 一番左は余白なし */
+}
+    
 /* フォーム */
 .form{
     margin-top:30px;
