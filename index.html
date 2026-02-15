@@ -104,6 +104,25 @@ select,input{
     border-radius:8px;
     margin-top:10px;
 }
+    
+
+/* プレイヤー名表示 */
+.nameArea{
+    position:absolute;
+    top:80%;     /* 初期位置 */
+    left:50%;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+}
+
+#playerName{
+    font-size:24px;      /* 初期サイズ */
+    color:black;         /* 黒色 */
+    font-weight:bold;
+    user-select:none;
+}
+
+    
 </style>
 </head>
 
@@ -201,6 +220,47 @@ document.addEventListener("mouseup", e => {
     isDragging = false;
     charArea.style.cursor = "grab";
 });
+
+
+
+const nameArea = document.getElementById("nameArea");
+const playerName = document.getElementById("playerName");
+const nameSize = document.getElementById("nameSize");
+
+// 文字入力
+function updateName(){
+    const name = document.getElementById("inputName").value;
+    playerName.textContent = name;
+}
+
+// サイズ変更
+nameSize.addEventListener("input", () => {
+    playerName.style.fontSize = nameSize.value + "px";
+});
+
+// ドラッグで移動
+let isNameDragging = false;
+let nameOffsetX, nameOffsetY;
+
+nameArea.addEventListener("mousedown", e => {
+    isNameDragging = true;
+    nameOffsetX = e.offsetX;
+    nameOffsetY = e.offsetY;
+    nameArea.style.cursor = "grabbing";
+});
+
+document.addEventListener("mousemove", e => {
+    if(!isNameDragging) return;
+    nameArea.style.left = e.pageX - nameOffsetX + "px";
+    nameArea.style.top  = e.pageY - nameOffsetY + "px";
+});
+
+document.addEventListener("mouseup", e => {
+    isNameDragging = false;
+    nameArea.style.cursor = "grab";
+});
+
+    
 </script>
 
 </body>
