@@ -78,14 +78,14 @@ function updateRank(){
     let rank = document.getElementById("inputRank").value;
     let img = document.getElementById("rankImg");
 
-    img.src = rank + ".png";
+    img.src = rank + "S.png";
 
     // リセット
     img.style.transform = "none";
 
     // Sだけ左にズラす
     if(rank === "S"){
-        img.style.transform = "translateX(-45%)";
+        img.style.transform = "translateX(-25%)";
     }
 }
     
