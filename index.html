@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>妖怪風カードメーカー</title>
+
+<style>
+body{
+    margin:0;
+    background:#111;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+    font-family:sans-serif;
+}
+
+.container{
+    position:relative;
+    width:95%;
+    max-width:900px;
+}
+
+.background{
+    width:100%;
+    display:block;
+}
+
+/* ランク画像 */
+.rankImg{
+    position:absolute;
+    top:6%;
+    right:14%;
+    width:6%;
+}
+
+/* フォーム */
+.form{
+    margin-top:30px;
+    width:95%;
+    max-width:900px;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+}
+
+select{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <img src="https://cdn.discordapp.com/attachments/1272772434021318687/1375831645118140426/IMG_3295.png" class="background">
+
+    <!-- 初期はEにしておく -->
+    <img src="E.png" id="rankImg" class="rankImg">
+</div>
+
+<div class="form">
+    <select id="inputRank" onchange="updateRank()">
+        <option value="E">E</option>
+        <option value="D">D</option>
+        <option value="C">C</option>
+        <option value="B">B</option>
+        <option value="A">A</option>
+        <option value="S">S</option>
+    </select>
+</div>
+
+<script>
+function updateRank(){
+    let rank = document.getElementById("inputRank").value;
+    document.getElementById("rankImg").src = rank + ".png";
+}
+</script>
+
+</body>
+</html>
