@@ -106,21 +106,23 @@ select,input{
 }
     
 
-/* プレイヤー名表示 */
+/* プレイヤー名表示をキャラの横に */
 .nameArea{
     position:absolute;
-    top:80%;     /* 初期位置 */
-    left:50%;
-    transform: translate(-50%, -50%);
+    top:50%;        /* キャラの高さに合わせる */
+    left:6.5%;      /* キャラの右側に寄せる（微調整可） */
+    transform: translate(0, -50%); /* 上下中央に揃える */
     cursor: grab;
 }
 
 #playerName{
-    font-size:24px;      /* 初期サイズ */
-    color:black;         /* 黒色 */
+    font-size:24px;
+    color:black;
     font-weight:bold;
     user-select:none;
+    white-space: nowrap; /* 長い文字も横に伸びる */
 }
+
 
     
 </style>
@@ -176,15 +178,14 @@ select,input{
 
 
 
-    <!-- プレイヤー名表示 -->
+
+    <div class="charArea" id="charArea">
+    <img id="charImg" src="nyororon.png" class="charImg">
+</div>
+
 <div class="nameArea" id="nameArea">
     <span id="playerName">PLAYER</span>
 </div>
-
-<!-- フォームに入力とサイズ調整スライダー -->
-<input type="text" id="inputName" maxlength="12" placeholder="プレイヤー名" oninput="updateName()">
-<label>文字サイズ</label>
-<input type="range" id="nameSize" min="10" max="100" value="24">
 
 </div>
 
