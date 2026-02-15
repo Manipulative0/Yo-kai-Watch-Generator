@@ -106,22 +106,40 @@ select,input{
 }
     
 
-/* プレイヤー名表示をキャラの横に */
-.nameArea{
-    position:absolute;
-    top:50%;        /* キャラの高さに合わせる */
-    left:6.5%;      /* キャラの右側に寄せる（微調整可） */
-    transform: translate(0, -50%); /* 上下中央に揃える */
-    cursor: grab;
-}
 
-#playerName{
-    font-size:24px;
+    /* 表示部分 */
+.nameDisplay{
+    position:absolute;
+    top:5%;          /* カード上の好きな位置に表示 */
+    left:50%;
+    transform: translateX(-50%);
     color:black;
     font-weight:bold;
+    font-size:24px;
     user-select:none;
-    white-space: nowrap; /* 長い文字も横に伸びる */
+    white-space: nowrap;
 }
+
+/* 入力欄 */
+.form input{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    margin-top:10px;
+}
+
+/* キャラ */
+.charArea{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+.charImg{
+    width:35px;
+    height:35px;
+}
+
 
 
     
@@ -177,16 +195,27 @@ select,input{
     </select>
 
 
+<!-- カード上の表示 -->
+<div class="container">
+    <img src="template.png" class="background">
 
-
+    <!-- キャラ -->
     <div class="charArea" id="charArea">
-    <img id="charImg" src="nyororon.png" class="charImg">
+        <img id="charImg" src="nyororon.png" class="charImg">
+    </div>
+
+    <!-- 入力した文字を表示 -->
+    <div class="nameDisplay" id="nameDisplay">PLAYER</div>
 </div>
 
-<div class="nameArea" id="nameArea">
-    <span id="playerName">PLAYER</span>
+<!-- 下のフォーム -->
+<div class="form">
+    <input type="text" id="inputName" maxlength="12" placeholder="プレイヤー名" oninput="updateName()">
 </div>
 
+
+
+    
 </div>
 
     
@@ -276,6 +305,15 @@ document.addEventListener("mouseup", e => {
     isNameDragging = false;
     nameArea.style.cursor = "grab";
 });
+
+    // リアルタイム反映
+const inputName = document.getElementById("inputName");
+const nameDisplay = document.getElementById("nameDisplay");
+
+function updateName(){
+    nameDisplay.textContent = inputName.value;
+}
+
 
     
 </script>
