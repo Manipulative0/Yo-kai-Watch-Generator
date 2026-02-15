@@ -35,12 +35,25 @@ body{
     width:25%;
 }
 
-    /*fffff*/
-    .rankImg[src="S.png"]{
+/* Sだけ位置変更 */
+.rankImg[src="S.png"]{
     right:29%;
-        top:-10%; 
+    top:-10%;
 }
 
+/* ===== ここから数字表示 ===== */
+
+.numberArea{
+    position:absolute;
+    top:65%;     /* ← 好きな位置に変えてOK */
+    left:40%;    /* ← 好きな位置に変えてOK */
+    display:flex;
+    gap:5px;
+}
+
+.numImg{
+    width:40px;  /* サイズ変更OK */
+}
 
 /* フォーム */
 .form{
@@ -52,10 +65,11 @@ body{
     border-radius:15px;
 }
 
-select{
+select,input{
     width:100%;
     padding:10px;
     border-radius:8px;
+    margin-top:10px;
 }
 </style>
 </head>
@@ -65,8 +79,15 @@ select{
 <div class="container">
     <img src="template.png" class="background">
 
-    <!-- 初期はEにしておく -->
+    <!-- ランク -->
     <img src="E.png" id="rankImg" class="rankImg">
+
+    <!-- 3桁番号 -->
+    <div class="numberArea">
+        <img id="num1" class="numImg" src="0.png">
+        <img id="num2" class="numImg" src="0.png">
+        <img id="num3" class="numImg" src="0.png">
+    </div>
 </div>
 
 <div class="form">
@@ -78,16 +99,30 @@ select{
         <option value="A">A</option>
         <option value="S">S</option>
     </select>
+
+    <!-- 数字入力 -->
+    <input type="text" id="inputNumber" maxlength="3"
+    placeholder="000" oninput="updateNumber()">
 </div>
 
 <script>
 
-    
-    
 function updateRank(){
     let rank = document.getElementById("inputRank").value;
     document.getElementById("rankImg").src = rank + ".png";
 }
+
+function updateNumber(){
+    let value = document.getElementById("inputNumber").value;
+
+    value = value.replace(/[^0-9]/g, "");
+    value = value.padStart(3, "0");
+
+    document.getElementById("num1").src = value[0] + ".png";
+    document.getElementById("num2").src = value[1] + ".png";
+    document.getElementById("num3").src = value[2] + ".png";
+}
+
 </script>
 
 </body>
