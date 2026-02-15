@@ -63,13 +63,11 @@ body{
     margin-left:0;
 }
 
-    /* 「1」の画像だけ少し小さく */
+/* 「1」の画像だけ少し小さく */
 .numImg[src="1.png"]{
-    width:42px;   /* 元50px → 少し小さく */
-    height:62px;  /* 元70px → 少し小さく */
+    width:42px;
+    height:62px;
 }
-
-
 
 /* ===== キャラ表示 ===== */
 .charArea{
@@ -78,14 +76,24 @@ body{
     left:6%;
     transform: translate(-50%, -50%);
     cursor: grab;
-
-    
 }
 
 .charImg{
     width:35px;
     height:35px;
     object-fit:contain;
+}
+
+/* ===== プレイヤー名表示 ===== */
+.nameDisplay{
+    position:absolute;
+    bottom:5%;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 28px;
+    font-weight: bold;
+    color: black; /* 黒文字 */
+    pointer-events: none; /* ドラッグされないように */
 }
 
 /* フォーム */
@@ -104,11 +112,6 @@ select,input{
     border-radius:8px;
     margin-top:10px;
 }
-    
-
-
-   
-    
 </style>
 </head>
 
@@ -131,6 +134,9 @@ select,input{
     <div class="charArea" id="charArea">
         <img id="charImg" src="nyororon.png" class="charImg">
     </div>
+
+    <!-- プレイヤー名表示 -->
+    <div id="nameDisplay" class="nameDisplay">PLAYER</div>
 </div>
 
 <div class="form">
@@ -156,15 +162,12 @@ select,input{
         <option value="pokapoka.png">ポカポカ</option>
         <option value="usurakage.png">ウスラカゲ</option>
         <option value="bukimi.png">ブキミ</option>
-        <option value=
-        "isamashi.png">イサマシ</option>
+        <option value="isamashi.png">イサマシ</option>
     </select>
 
-
-    
+    <!-- プレイヤー名入力 -->
+    <input type="text" id="inputName" placeholder="プレイヤー名" maxlength="10" oninput="updateName()">
 </div>
-
-    
 
 <script>
 // ランク変更
@@ -190,6 +193,12 @@ function updateChar(){
     document.getElementById("charImg").src = char;
 }
 
+// プレイヤー名変更
+function updateName(){
+    const name = document.getElementById("inputName").value;
+    document.getElementById("nameDisplay").textContent = name || "PLAYER";
+}
+
 // キャラをドラッグで移動
 const charArea = document.getElementById("charArea");
 let isDragging = false;
@@ -212,19 +221,8 @@ document.addEventListener("mouseup", e => {
     isDragging = false;
     charArea.style.cursor = "grab";
 });
-
-
-
-const nameArea = document.getElementById("nameArea");
-const playerName = document.getElementById("playerName");
-const nameSize = document.getElementById("nameSize");
-
-
-
-
-
-    
 </script>
 
 </body>
 </html>
+
