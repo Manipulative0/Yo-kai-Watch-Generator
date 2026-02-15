@@ -76,22 +76,11 @@ select{
 <script>
 
     
-function updateRank(){
-    const rank = document.getElementById("inputRank").value;
-    const img  = document.getElementById("rankImg");
 
-    img.src = rank + ".png";
-
-    // いったん通常位置に戻す
-    img.style.top = "-11%";
-    img.style.right = "25%";
-
-    // Sのときだけ位置を変える
     if(rank === "S"){
-        img.style.top = "-11%";   // ← 上下も変えたいならここ
-        img.style.right = "27%";  // ← ここを好きな値に
-    }
+    img.style.right = "70%";
 }
+
 
     
     
