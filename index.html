@@ -37,7 +37,7 @@ body{
 
 /* Sだけ位置変更 */
 .rankImg[src="S.png"]{
-    right:29%;
+    right:32%;
     top:-10%;
 }
 
@@ -170,9 +170,25 @@ select,input{
         <option value="pokapoka.png">ポカポカ</option>
         <option value="usurakage.png">ウスラカゲ</option>
         <option value="bukimi.png">ブキミ</option>
-        <option value="isamashi.png">イサマシ</option>
+        <option value=
+        "isamashi.png">イサマシ</option>
     </select>
+
+
+
+    <!-- プレイヤー名表示 -->
+<div class="nameArea" id="nameArea">
+    <span id="playerName">PLAYER</span>
 </div>
+
+<!-- フォームに入力とサイズ調整スライダー -->
+<input type="text" id="inputName" maxlength="12" placeholder="プレイヤー名" oninput="updateName()">
+<label>文字サイズ</label>
+<input type="range" id="nameSize" min="10" max="100" value="24">
+
+</div>
+
+    
 
 <script>
 // ランク変更
