@@ -62,6 +62,12 @@ body{
 .numImg:first-child{
     margin-left:0;  /* 一番左は余白なし */
 }
+
+    /* src が 1.png のときだけサイズを調整 */
+.numImg[src="1.png"]{
+    width:45px;   /* 好きな大きさに調整 */
+    height:65px;
+}
     
 /* フォーム */
 .form{
