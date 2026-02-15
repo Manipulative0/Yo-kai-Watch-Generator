@@ -107,41 +107,7 @@ select,input{
     
 
 
-    /* 表示部分 */
-.nameDisplay{
-    position:absolute;
-    top:5%;          /* カード上の好きな位置に表示 */
-    left:50%;
-    transform: translateX(-50%);
-    color:black;
-    font-weight:bold;
-    font-size:24px;
-    user-select:none;
-    white-space: nowrap;
-}
-
-/* 入力欄 */
-.form input{
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    margin-top:10px;
-}
-
-/* キャラ */
-.charArea{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%);
-}
-.charImg{
-    width:35px;
-    height:35px;
-}
-
-
-
+   
     
 </style>
 </head>
@@ -193,22 +159,6 @@ select,input{
         <option value=
         "isamashi.png">イサマシ</option>
     </select>
-
-
-<!-- カード上の表示 -->
-<div class="container">
-    <img src="template.png" class="background">
-
-
-    <!-- 入力した文字を表示 -->
-    <div class="nameDisplay" id="nameDisplay">PLAYER</div>
-</div>
-
-<!-- 下のフォーム -->
-<div class="form">
-    <input type="text" id="inputName" maxlength="12" placeholder="プレイヤー名" oninput="updateName()">
-</div>
-
 
 
     
@@ -269,46 +219,8 @@ const nameArea = document.getElementById("nameArea");
 const playerName = document.getElementById("playerName");
 const nameSize = document.getElementById("nameSize");
 
-// 文字入力
-function updateName(){
-    const name = document.getElementById("inputName").value;
-    playerName.textContent = name;
-}
 
-// サイズ変更
-nameSize.addEventListener("input", () => {
-    playerName.style.fontSize = nameSize.value + "px";
-});
 
-// ドラッグで移動
-let isNameDragging = false;
-let nameOffsetX, nameOffsetY;
-
-nameArea.addEventListener("mousedown", e => {
-    isNameDragging = true;
-    nameOffsetX = e.offsetX;
-    nameOffsetY = e.offsetY;
-    nameArea.style.cursor = "grabbing";
-});
-
-document.addEventListener("mousemove", e => {
-    if(!isNameDragging) return;
-    nameArea.style.left = e.pageX - nameOffsetX + "px";
-    nameArea.style.top  = e.pageY - nameOffsetY + "px";
-});
-
-document.addEventListener("mouseup", e => {
-    isNameDragging = false;
-    nameArea.style.cursor = "grab";
-});
-
-    // リアルタイム反映
-const inputName = document.getElementById("inputName");
-const nameDisplay = document.getElementById("nameDisplay");
-
-function updateName(){
-    nameDisplay.textContent = inputName.value;
-}
 
 
     
