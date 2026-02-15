@@ -112,6 +112,21 @@ select,input{
     border-radius:8px;
     margin-top:10px;
 }
+
+
+/* プレイヤー名表示 */
+.nameDisplay{
+    position:absolute;
+    top:5%;       /* 上から5%の位置に配置 */
+    left:50%;
+    transform: translateX(-50%);
+    font-size:28px;
+    font-weight:bold;
+    color:black;
+    cursor: grab;  /* ドラッグ可能にする場合 */
+}
+
+    
 </style>
 </head>
 
@@ -166,7 +181,7 @@ select,input{
     </select>
 
     <!-- プレイヤー名入力 -->
-    <input type="text" id="inputName" placeholder="プレイヤー名" maxlength="10" oninput="updateName()">
+    <input type="text" id="inputName" placeholder="プレイヤー名を入力してください" maxlength="10" oninput="updateName()">
 </div>
 
 <script>
