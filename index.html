@@ -41,36 +41,48 @@ body{
     top:-10%;
 }
 
-/* ===== ここから数字表示 ===== */
-
+/* ===== 数字表示 ===== */
 .numberArea{
     position:absolute;
-    top:2%;     /* ← 好きな位置に変えてOK */
-    left:67%;    /* ← 好きな位置に変えてOK */
+    top:2%;
+    left:67%;
     display:flex;
     gap:-5px;
-      transform: scale(0.3); /* 1 が元サイズ、2 なら2倍、0.5なら半分 */
-    transform-origin: top left; /* 拡大・縮小の基準 */
+    transform: scale(0.3);
+    transform-origin: top left;
 }
 
-
-    .numImg{
-    width:50px;      /* 横サイズ固定 */
-    height:70px;     /* 縦サイズ固定 */
+.numImg{
+    width:50px;
+    height:70px;
     object-fit:contain;
-     margin-left:-1px; /* 歪ませない */
+    margin-left:-1px;
 }
 
 .numImg:first-child{
-    margin-left:0;  /* 一番左は余白なし */
+    margin-left:0;
 }
 
-    /* src が 1.png のときだけサイズを調整 */
 .numImg[src="1.png"]{
-    width:41px;   /* 好きな大きさに調整 */
+    width:41px;
     height:65px;
 }
-    
+
+/* ===== キャラ表示 ===== */
+.charArea{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+}
+
+.charImg{
+    width:100px;
+    height:100px;
+    object-fit:contain;
+}
+
 /* フォーム */
 .form{
     margin-top:30px;
@@ -104,9 +116,15 @@ select,input{
         <img id="num2" class="numImg" src="0.png">
         <img id="num3" class="numImg" src="0.png">
     </div>
+
+    <!-- キャラ表示 -->
+    <div class="charArea" id="charArea">
+        <img id="charImg" src="nyororon.png" class="charImg">
+    </div>
 </div>
 
 <div class="form">
+    <!-- ランク選択 -->
     <select id="inputRank" onchange="updateRank()">
         <option value="E">E</option>
         <option value="D">D</option>
@@ -117,20 +135,31 @@ select,input{
     </select>
 
     <!-- 数字入力 -->
-    <input type="text" id="inputNumber" maxlength="3"
-    placeholder="000" oninput="updateNumber()">
+    <input type="text" id="inputNumber" maxlength="3" placeholder="000" oninput="updateNumber()">
+
+    <!-- キャラ選択 -->
+    <select id="inputChar" onchange="updateChar()">
+        <option value="nyororon.png">ﾆｮﾛﾛﾝ</option>
+        <option value="goketsu.png">ゴーケツ</option>
+        <option value="fushigi.png">フシギ</option>
+        <option value="purichi.png">プーリチ</option>
+        <option value="pokapoka.png">ポカポカ</option>
+        <option value="usurakage.png">ウスラカゲ</option>
+        <option value="bukimi.png">ブキミ</option>
+        <option value="isamashi.png">イサマシ</option>
+    </select>
 </div>
 
 <script>
-
+// ランク変更
 function updateRank(){
     let rank = document.getElementById("inputRank").value;
     document.getElementById("rankImg").src = rank + ".png";
 }
 
+// 数字変更
 function updateNumber(){
     let value = document.getElementById("inputNumber").value;
-
     value = value.replace(/[^0-9]/g, "");
     value = value.padStart(3, "0");
 
@@ -139,6 +168,34 @@ function updateNumber(){
     document.getElementById("num3").src = value[2] + ".png";
 }
 
+// キャラ変更
+function updateChar(){
+    const char = document.getElementById("inputChar").value;
+    document.getElementById("charImg").src = char;
+}
+
+// キャラをドラッグで移動
+const charArea = document.getElementById("charArea");
+let isDragging = false;
+let offsetX, offsetY;
+
+charArea.addEventListener("mousedown", e => {
+    isDragging = true;
+    offsetX = e.offsetX;
+    offsetY = e.offsetY;
+    charArea.style.cursor = "grabbing";
+});
+
+document.addEventListener("mousemove", e => {
+    if(!isDragging) return;
+    charArea.style.left = e.pageX - offsetX + "px";
+    charArea.style.top  = e.pageY - offsetY + "px";
+});
+
+document.addEventListener("mouseup", e => {
+    isDragging = false;
+    charArea.style.cursor = "grab";
+});
 </script>
 
 </body>
