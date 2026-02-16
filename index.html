@@ -126,6 +126,20 @@ select,input{
     cursor: grab;  /* ドラッグ可能にする場合 */
 }
 
+    /* ===== 説明表示 ===== */
+.descDisplay{
+    position:absolute;
+    bottom:12%;      /* ← 位置ここで調整できる */
+    left:50%;
+    transform:translateX(-50%);
+    width:70%;
+    font-size:14px;
+    color:black;
+    text-align:center;
+    word-wrap:break-word;
+    pointer-events:none;
+}
+
     
 </style>
 </head>
@@ -183,7 +197,18 @@ select,input{
     <!-- プレイヤー名入力 -->
 <input type="text" id="inputName" placeholder="プレイヤー名を入力してください" maxlength="7" oninput="updateName()">
 
-   
+    <!-- プレイヤー名表示 -->
+<div id="nameDisplay" class="nameDisplay">PLAYER</div>
+
+    <!-- 説明表示 -->
+<div id="descDisplay" class="descDisplay">ここに説明が入ります</div>
+
+    <!-- 説明入力 -->
+<input type="text" id="inputDesc" placeholder="説明を入力してください" maxlength="40" oninput="updateDesc()">
+
+
+
+    
 </div>
 
 <script>
@@ -238,6 +263,13 @@ document.addEventListener("mouseup", e => {
     isDragging = false;
     charArea.style.cursor = "grab";
 });
+
+    // 説明変更
+function updateDesc(){
+    const desc = document.getElementById("inputDesc").value;
+    document.getElementById("descDisplay").textContent = desc || "ここに説明が入ります";
+}
+
 </script>
 
 </body>
