@@ -35,7 +35,6 @@ body{
     width:25%;
 }
 
-/* Sだけ位置変更 */
 .rankImg[src="S.png"]{
     right:32%;
     top:-10%;
@@ -47,7 +46,6 @@ body{
     top:4%;
     left:67%;
     display:flex;
-    gap:-5px;
     transform: scale(0.3);
     transform-origin: top left;
 }
@@ -63,7 +61,6 @@ body{
     margin-left:0;
 }
 
-/* 「1」の画像だけ少し小さく */
 .numImg[src="1.png"]{
     width:42px;
     height:62px;
@@ -87,13 +84,25 @@ body{
 /* ===== プレイヤー名表示 ===== */
 .nameDisplay{
     position:absolute;
-    bottom:5%;
-    left:50%;
+    top:3%;
+    left:29%;
     transform: translateX(-50%);
-    font-size: 28px;
-    font-weight: bold;
-    color: black; /* 黒文字 */
-    pointer-events: none; /* ドラッグされないように */
+    font-size:18px;
+    font-weight:bold;
+    color:black;
+}
+
+/* ===== 説明表示 ===== */
+.descDisplay{
+    position:absolute;
+    bottom:12%;
+    left:50%;
+    transform:translateX(-50%);
+    width:70%;
+    font-size:14px;
+    color:black;
+    text-align:center;
+    word-wrap:break-word;
 }
 
 /* フォーム */
@@ -112,35 +121,6 @@ select,input{
     border-radius:8px;
     margin-top:10px;
 }
-
-
-/* プレイヤー名表示 */
-.nameDisplay{
-    position:absolute;
-    top:3%;       /* 上から5%の位置に配置 */
-    left:29%;
-    transform: translateX(-50%);
-    font-size:18px;
-    font-weight:bold;
-    color:black;
-    cursor: grab;  /* ドラッグ可能にする場合 */
-}
-
-    /* ===== 説明表示 ===== */
-.descDisplay{
-    position:absolute;
-    bottom:12%;      /* ← 位置ここで調整できる */
-    left:50%;
-    transform:translateX(-50%);
-    width:70%;
-    font-size:14px;
-    color:black;
-    text-align:center;
-    word-wrap:break-word;
-    pointer-events:none;
-}
-
-    
 </style>
 </head>
 
@@ -149,27 +129,26 @@ select,input{
 <div class="container">
     <img src="te.png" class="background">
 
-    <!-- ランク -->
     <img src="E.png" id="rankImg" class="rankImg">
 
-    <!-- 3桁番号 -->
     <div class="numberArea">
         <img id="num1" class="numImg" src="0.png">
         <img id="num2" class="numImg" src="0.png">
         <img id="num3" class="numImg" src="0.png">
     </div>
 
-    <!-- キャラ表示 -->
     <div class="charArea" id="charArea">
         <img id="charImg" src="nyororon.png" class="charImg">
     </div>
 
-    <!-- プレイヤー名表示 -->
+    <!-- ★ container内に表示系をまとめる -->
     <div id="nameDisplay" class="nameDisplay">PLAYER</div>
+    <div id="descDisplay" class="descDisplay">ここに説明が入ります</div>
+
 </div>
 
 <div class="form">
-    <!-- ランク選択 -->
+
     <select id="inputRank" onchange="updateRank()">
         <option value="E">E</option>
         <option value="D">D</option>
@@ -179,10 +158,8 @@ select,input{
         <option value="S">S</option>
     </select>
 
-    <!-- 数字入力 -->
     <input type="text" id="inputNumber" maxlength="3" placeholder="000" oninput="updateNumber()">
 
-    <!-- キャラ選択 -->
     <select id="inputChar" onchange="updateChar()">
         <option value="nyororon.png">ﾆｮﾛﾛﾝ</option>
         <option value="gokestu.png">ゴーケツ</option>
@@ -194,31 +171,18 @@ select,input{
         <option value="isamashi.png">イサマシ</option>
     </select>
 
-    <!-- プレイヤー名入力 -->
-<input type="text" id="inputName" placeholder="プレイヤー名を入力してください" maxlength="7" oninput="updateName()">
+    <input type="text" id="inputName" placeholder="プレイヤー名を入力してください" maxlength="7" oninput="updateName()">
 
-    <!-- プレイヤー名表示 -->
-<div id="nameDisplay" class="nameDisplay">PLAYER</div>
+    <input type="text" id="inputDesc" placeholder="説明を入力してください" maxlength="40" oninput="updateDesc()">
 
-    <!-- 説明表示 -->
-<div id="descDisplay" class="descDisplay">ここに説明が入ります</div>
-
-    <!-- 説明入力 -->
-<input type="text" id="inputDesc" placeholder="説明を入力してください" maxlength="40" oninput="updateDesc()">
-
-
-
-    
 </div>
 
 <script>
-// ランク変更
 function updateRank(){
     let rank = document.getElementById("inputRank").value;
     document.getElementById("rankImg").src = rank + ".png";
 }
 
-// 数字変更
 function updateNumber(){
     let value = document.getElementById("inputNumber").value;
     value = value.replace(/[^0-9]/g, "");
@@ -229,19 +193,21 @@ function updateNumber(){
     document.getElementById("num3").src = value[2] + ".png";
 }
 
-// キャラ変更
 function updateChar(){
     const char = document.getElementById("inputChar").value;
     document.getElementById("charImg").src = char;
 }
 
-// プレイヤー名変更
 function updateName(){
     const name = document.getElementById("inputName").value;
     document.getElementById("nameDisplay").textContent = name || "PLAYER";
 }
 
-// キャラをドラッグで移動
+function updateDesc(){
+    const desc = document.getElementById("inputDesc").value;
+    document.getElementById("descDisplay").textContent = desc || "ここに説明が入ります";
+}
+
 const charArea = document.getElementById("charArea");
 let isDragging = false;
 let offsetX, offsetY;
@@ -263,13 +229,6 @@ document.addEventListener("mouseup", e => {
     isDragging = false;
     charArea.style.cursor = "grab";
 });
-
-    // 説明変更
-function updateDesc(){
-    const desc = document.getElementById("inputDesc").value;
-    document.getElementById("descDisplay").textContent = desc || "ここに説明が入ります";
-}
-
 </script>
 
 </body>
