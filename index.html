@@ -92,18 +92,20 @@ body{
     color:black;
 }
 
-/* ===== 説明表示 ===== */
-.descDisplay{
+
+    .descDisplay{
     position:absolute;
     bottom:65%;
-    left:85%;
+    left:80%;
     transform:translateX(-50%);
     width:70%;
-    font-size:10px;
+    font-size:13px;
     color:black;
     text-align:left;
     word-wrap:break-word;
+    white-space:pre-line;   /* ← これ追加 */
 }
+
 
 /* フォーム */
 .form{
@@ -203,10 +205,22 @@ function updateName(){
     document.getElementById("nameDisplay").textContent = name || "PLAYER";
 }
 
-function updateDesc(){
-    const desc = document.getElementById("inputDesc").value;
-    document.getElementById("descDisplay").textContent = desc || "ここに説明が入ります";
+
+
+    function updateDesc(){
+    const input = document.getElementById("inputDesc").value;
+    const display = document.getElementById("descDisplay");
+
+    if(!input){
+        display.textContent = "ここに説明が入ります";
+        return;
+    }
+
+    // 16文字ごとに改行
+    const lines = input.match(/.{1,16}/g);
+    display.textContent = lines.join("\n");
 }
+
 
 const charArea = document.getElementById("charArea");
 let isDragging = false;
@@ -229,6 +243,8 @@ document.addEventListener("mouseup", e => {
     isDragging = false;
     charArea.style.cursor = "grab";
 });
+
+    
 </script>
 
 </body>
